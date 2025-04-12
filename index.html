@@ -8,235 +8,437 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
-<body class="min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col bg-gray-900 text-white">
     
 <!-- Header -->
-<header class="flex items-center justify-between p-4 border-b sticky top-0 z-10">
-    <div class="flex items-center space-x-4">
+<header class="flex flex-col sm:flex-row items-center justify-between p-4 border-b sticky top-0 z-10 bg-gray-900">
+    <div class="flex items-center space-x-4 mb-4 sm:mb-0">
         <span class="flex items-center">
-            <i class="bx bx-pulse mr-2 text-purple-500 glow text-3xl"></i>
-            <span class="text-4xl italic font-bold text-purple-500">A</span>
-            <span class="text-2xl font-bold">TUNG MUSIKA</span>
+            <i class="bx bx-pulse mr-2 text-purple-500 glow text-2xl sm:text-3xl"></i>
+            <span class="text-3xl sm:text-4xl italic font-bold text-purple-500">A</span>
+            <span class="text-xl sm:text-2xl font-bold">TUNG MUSIKA</span>
         </span>
         <nav class="hidden md:flex space-x-6">
-            <a class="relative group hover:text-purple-400 transition" href="#">
+            <a class="nav-link relative group hover:text-purple-400 transition" href="#home" data-section="home">
                 Home
                 <span class="absolute left-0 bottom-0 h-0.5 w-full bg-purple-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
             </a>
-            <a class="relative group hover:text-purple-400 transition" href="#">
+            <a class="nav-link relative group hover:text-purple-400 transition" href="#about" data-section="about">
                 About
                 <span class="absolute left-0 bottom-0 h-0.5 w-full bg-purple-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
             </a>
-            <a class="relative group hover:text-purple-400 transition" href="#music-library">
+            <a class="nav-link relative group hover:text-purple-400 transition" href="#library" data-section="library">
                 Library
                 <span class="absolute left-0 bottom-0 h-0.5 w-full bg-purple-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
             </a>
-            <a class="relative group hover:text-purple-400 transition" href="#">
-                Contact
+            <a class="nav-link relative group hover:text-purple-400 transition" href="#popular" data-section="popular">
+                Popular
                 <span class="absolute left-0 bottom-0 h-0.5 w-full bg-purple-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
             </a>
         </nav>
     </div>
     <div class="flex items-center space-x-4">
+        <div class="flex items-center space-x-2">
+            <i class="fas fa-user text-purple-500"></i>
+            <span id="userName" class="text-sm sm:text-base"></span>
+        </div>
         <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-700">
             <i id="theme-icon" class="fas fa-moon"></i>
         </button>
-        <button class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-full transition">
-            <i class="fab fa-apple mr-2"></i>Connect
+        <button id="logout-btn" class="bg-red-600 hover:bg-red-700 text-white px-3 sm:px-4 py-2 rounded-full transition text-sm sm:text-base">
+            Logout
         </button>
     </div>
 </header>
-<!-- Main Content -->
-<main class="flex-1 p-6">
-    <div class="max-w-6xl mx-auto">
-        <div class="flex justify-between items-center mb-8">
-            <h1 class="text-3xl font-bold">Music Library</h1>
-            <div class="relative">
-              <input type="text" id="search-input" placeholder="Search songs..." class="bg-gray-800 text-white px-4 py-2 rounded-full pl-10 w-64 focus:outline-none focus:ring-2 focus:ring-purple-500"/>
-              <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
-              <div id="search-results" class="absolute z-10 bg-gray-800 w-full rounded mt-1 hidden"></div>
-          </div>
-        </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        <!-- Song 1 -->
-        <div class="song-card rounded-lg p-4 cursor-pointer" data-title="Englishera" data-artist="John Kyle Perez" data-src="wwd.mp3juice.blog - Englishera - Missing Felimon(Lyrics) (320 KBps).mp3" data-img="perez.png">
-          <div class="flex items-center space-x-4">
-            <div class="relative">
-              <img alt="Englishera" class="h-16 w-16 rounded" src="perez.png"/>
-              <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition">
-                <i class="fas fa-play text-white text-xl"></i>
-              </div>
-            </div>
-            <div>
-              <h3 class="font-medium">Englishera</h3>
-              <p class="text-sm text-gray-400">John Kyle Perez</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Song 2 -->
-        <div class="song-card rounded-lg p-4 cursor-pointer" data-title="V-HIRE" data-artist="Driver sa" data-src="wwd.mp3juice.blog - V-hire with lyrics (320 KBps).mp3" data-img="https://storage.googleapis.com/a1aa/image/LZK9ePUp6YhAR4iAyoYp1eSCEr8IS1Yfe5gwZn3dwPw.jpg">
-          <div class="flex items-center space-x-4">
-            <div class="relative">
-              <img alt="V-HIRE" class="h-16 w-16 rounded" src="https://storage.googleapis.com/a1aa/image/LZK9ePUp6YhAR4iAyoYp1eSCEr8IS1Yfe5gwZn3dwPw.jpg"/>
-              <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition">
-                <i class="fas fa-play text-white text-xl"></i>
-              </div>
-            </div>
-            <div>
-              <h3 class="font-medium">V-HIRE</h3>
-              <p class="text-sm text-gray-400">Driver sa</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Song 3 -->
-        <div class="song-card rounded-lg p-4 cursor-pointer" data-title="Suroy Suroy" data-artist="Missing - Felimon" data-src="wwd.mp3juice.blog - Missing Filemon - Suroy-Suroy lyric video (320 KBps).mp3" data-img="https://storage.googleapis.com/a1aa/image/a3vqg2seiRfUrUXIjc_2hXMnrBwnxnAL7YlKmAZYrHg.jpg">
-          <div class="flex items-center space-x-4">
-            <div class="relative">
-              <img alt="Messy" class="h-16 w-16 rounded" src="https://storage.googleapis.com/a1aa/image/a3vqg2seiRfUrUXIjc_2hXMnrBwnxnAL7YlKmAZYrHg.jpg"/>
-              <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition">
-                <i class="fas fa-play text-white text-xl"></i>
-              </div>
-            </div>
-            <div>
-              <h3 class="font-medium">Suroy Suroy</h3>
-              <p class="text-sm text-gray-400">Missing - Felimon</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Song 4 -->
-        <div class="song-card rounded-lg p-4 cursor-pointer" data-title="Chinita" data-artist="Perez" data-src="wwd.mp3juice.blog - Chinita - Bisrock (Tiktok Lyric Video) (320 KBps).mp3" data-img="https://storage.googleapis.com/a1aa/image/1ACEKnp84OGES5TYGpQPKAWOxAOXNqe22AobrYiZVhc.jpg">
-          <div class="flex items-center space-x-4">
-            <div class="relative">
-              <img alt="APT." class="h-16 w-16 rounded" src="https://storage.googleapis.com/a1aa/image/1ACEKnp84OGES5TYGpQPKAWOxAOXNqe22AobrYiZVhc.jpg"/>
-              <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition">
-                <i class="fas fa-play text-white text-xl"></i>
-              </div>
-            </div>
-            <div>
-              <h3 class="font-medium">Chinita</h3>
-              <p class="text-sm text-gray-400">Perez</p>
-            </div>
-          </div>
-        </div>
-
-         <!-- Song 5-->
-         <div class="song-card rounded-lg p-4 cursor-pointer" data-title="Prinsipal" data-artist="Fernandez" data-src="wwd.mp3juice.blog - Missing Filemon - PRINSIPAL (Lyrics) (320 KBps).mp3" data-img="https://storage.googleapis.com/a1aa/image/1ACEKnp84OGES5TYGpQPKAWOxAOXNqe22AobrYiZVhc.jpg">
-            <div class="flex items-center space-x-4">
-              <div class="relative">
-                <img alt="APT." class="h-16 w-16 rounded" src="https://storage.googleapis.com/a1aa/image/1ACEKnp84OGES5TYGpQPKAWOxAOXNqe22AobrYiZVhc.jpg"/>
-                <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition">
-                  <i class="fas fa-play text-white text-xl"></i>
+<!-- Content Sections -->
+<main class="flex-1">
+    <!-- Home Section -->
+    <section id="home" class="content-section">
+        <div class="p-4 sm:p-6">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-12 animate-fade-in">
+                    <h1 class="text-4xl sm:text-5xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">Welcome to ATUNG MUSIKA</h1>
+                    <p class="text-xl text-gray-400 mb-8">Your ultimate destination for Bisaya music</p>
                 </div>
-              </div>
-              <div>
-                <h3 class="font-medium">Prinsipal</h3>
-                <p class="text-sm text-gray-400">Fernandez</p>
-              </div>
-            </div>
-          </div>
 
-           <!-- Song 6-->
-         <div class="song-card rounded-lg p-4 cursor-pointer" data-title="Bisan pa" data-artist="Unknown" data-src="wwd.mp3juice.blog - bisan pa (lyrics) (320 KBps).mp3" data-img="https://storage.googleapis.com/a1aa/image/1ACEKnp84OGES5TYGpQPKAWOxAOXNqe22AobrYiZVhc.jpg">
-            <div class="flex items-center space-x-4">
-              <div class="relative">
-                <img alt="APT." class="h-16 w-16 rounded" src="https://storage.googleapis.com/a1aa/image/1ACEKnp84OGES5TYGpQPKAWOxAOXNqe22AobrYiZVhc.jpg"/>
-                <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition">
-                  <i class="fas fa-play text-white text-xl"></i>
-                </div>
-              </div>
-              <div>
-                <h3 class="font-medium">Bisan pa</h3>
-                <p class="text-sm text-gray-400">Unknown</p>
-              </div>
-            </div>
-          </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Featured Artists -->
+                    <div class="feature-card bg-gray-800 p-6 rounded-lg transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-users text-4xl text-purple-500 mb-4"></i>
+                            <h3 class="text-xl font-bold mb-2">Featured Artists</h3>
+                            <p class="text-gray-400">Discover talented Bisaya artists and their latest releases</p>
+                        </div>
+                    </div>
 
-            <!-- Song 7-->
-         <div class="song-card rounded-lg p-4 cursor-pointer" data-title="Istambay" data-artist="Enchi" data-src="wwd.mp3juice.blog - Istambay (Lyrics) - Enchi (320 KBps).mp3" data-img="https://storage.googleapis.com/a1aa/image/1ACEKnp84OGES5TYGpQPKAWOxAOXNqe22AobrYiZVhc.jpg">
-            <div class="flex items-center space-x-4">
-              <div class="relative">
-                <img alt="APT." class="h-16 w-16 rounded" src="https://storage.googleapis.com/a1aa/image/1ACEKnp84OGES5TYGpQPKAWOxAOXNqe22AobrYiZVhc.jpg"/>
-                <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition">
-                  <i class="fas fa-play text-white text-xl"></i>
-                </div>
-              </div>
-              <div>
-                <h3 class="font-medium">Istambay</h3>
-                <p class="text-sm text-gray-400">Enchi</p>
-              </div>
-            </div>
-          </div>
+                    <!-- Latest Releases -->
+                    <div class="feature-card bg-gray-800 p-6 rounded-lg transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-music text-4xl text-purple-500 mb-4"></i>
+                            <h3 class="text-xl font-bold mb-2">Latest Releases</h3>
+                            <p class="text-gray-400">Stay updated with the newest Bisaya songs and albums</p>
+                        </div>
+                    </div>
 
-        <!-- Song 8-->
-         <div class="song-card rounded-lg p-4 cursor-pointer" data-title="Palagot sa kontra" data-artist="Unknown" data-src="wwd.mp3juice.blog - PALAGOT SA KONTRA - Phylum (lyrics) bisrock (320 KBps).mp3" data-img="https://storage.googleapis.com/a1aa/image/1ACEKnp84OGES5TYGpQPKAWOxAOXNqe22AobrYiZVhc.jpg">
-            <div class="flex items-center space-x-4">
-              <div class="relative">
-                <img alt="APT." class="h-16 w-16 rounded" src="https://storage.googleapis.com/a1aa/image/1ACEKnp84OGES5TYGpQPKAWOxAOXNqe22AobrYiZVhc.jpg"/>
-                <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition">
-                  <i class="fas fa-play text-white text-xl"></i>
+                    <!-- Community -->
+                    <div class="feature-card bg-gray-800 p-6 rounded-lg transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-heart text-4xl text-purple-500 mb-4"></i>
+                            <h3 class="text-xl font-bold mb-2">Community</h3>
+                            <p class="text-gray-400">Join our growing community of Bisaya music lovers</p>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <div>
-                <h3 class="font-medium">Palagot sa kontra</h3>
-                <p class="text-sm text-gray-400">Unknown</p>
-              </div>
-            </div>
-          </div>
 
-        <!-- Song 9-->
-         <div class="song-card rounded-lg p-4 cursor-pointer" data-title="Agay" data-artist="Abscond" data-src="wwd.mp3juice.blog - AGAY (lyrics) Abscond (320 KBps).mp3" data-img="https://storage.googleapis.com/a1aa/image/1ACEKnp84OGES5TYGpQPKAWOxAOXNqe22AobrYiZVhc.jpg">
-            <div class="flex items-center space-x-4">
-              <div class="relative">
-                <img alt="APT." class="h-16 w-16 rounded" src="https://storage.googleapis.com/a1aa/image/1ACEKnp84OGES5TYGpQPKAWOxAOXNqe22AobrYiZVhc.jpg"/>
-                <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition">
-                  <i class="fas fa-play text-white text-xl"></i>
+                <!-- Trending Now -->
+                <div class="mt-12">
+                    <h2 class="text-2xl font-bold mb-6 text-center">Trending Now</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="trending-card bg-gray-800 p-4 rounded-lg transform hover:scale-105 transition-transform duration-300">
+                            <div class="flex items-center space-x-4">
+                                <img src="perez.png" alt="Trending Song" class="w-16 h-16 rounded">
+                                <div>
+                                    <h4 class="font-bold">Englishera</h4>
+                                    <p class="text-sm text-gray-400">John Kyle Perez</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="trending-card bg-gray-800 p-4 rounded-lg transform hover:scale-105 transition-transform duration-300">
+                            <div class="flex items-center space-x-4">
+                                <img src="v-hire.jpg" alt="Trending Song" class="w-16 h-16 rounded">
+                                <div>
+                                    <h4 class="font-bold">V-HIRE</h4>
+                                    <p class="text-sm text-gray-400">Driver sa</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="trending-card bg-gray-800 p-4 rounded-lg transform hover:scale-105 transition-transform duration-300">
+                            <div class="flex items-center space-x-4">
+                                <img src="chinita.jpg" alt="Trending Song" class="w-16 h-16 rounded">
+                                <div>
+                                    <h4 class="font-bold">Chinita</h4>
+                                    <p class="text-sm text-gray-400">Perez</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <div>
-                <h3 class="font-medium">Agay</h3>
-                <p class="text-sm text-gray-400">Abscond</p>
-              </div>
             </div>
-          </div>
-          
-    </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="content-section hidden">
+        <div class="p-4 sm:p-6">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-12 animate-fade-in">
+                    <h1 class="text-4xl sm:text-5xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">About ATUNG MUSIKA</h1>
+                    <p class="text-xl text-gray-400 mb-8">Learn more about our music platform</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                    <!-- Mission -->
+                    <div class="about-card bg-gray-800 p-6 rounded-lg transform hover:scale-105 transition-transform duration-300">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-bullseye text-3xl text-purple-500 mr-4"></i>
+                            <h3 class="text-xl font-bold">Our Mission</h3>
+                        </div>
+                        <p class="text-gray-400">To promote and preserve Bisaya music by providing a platform for artists to showcase their talent and for listeners to discover authentic Bisaya music.</p>
+                    </div>
+
+                    <!-- Vision -->
+                    <div class="about-card bg-gray-800 p-6 rounded-lg transform hover:scale-105 transition-transform duration-300">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-eye text-3xl text-purple-500 mr-4"></i>
+                            <h3 class="text-xl font-bold">Our Vision</h3>
+                        </div>
+                        <p class="text-gray-400">To become the leading platform for Bisaya music, connecting artists and fans worldwide while preserving our cultural heritage through music.</p>
+                    </div>
+                </div>
+
+                <!-- Features -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="feature-item bg-gray-800 p-6 rounded-lg transform hover:scale-105 transition-transform duration-300">
+                        <i class="fas fa-headphones text-3xl text-purple-500 mb-4"></i>
+                        <h4 class="text-lg font-bold mb-2">High Quality Audio</h4>
+                        <p class="text-gray-400">Enjoy your favorite Bisaya songs in crystal clear quality</p>
+                    </div>
+                    <div class="feature-item bg-gray-800 p-6 rounded-lg transform hover:scale-105 transition-transform duration-300">
+                        <i class="fas fa-mobile-alt text-3xl text-purple-500 mb-4"></i>
+                        <h4 class="text-lg font-bold mb-2">Mobile Friendly</h4>
+                        <p class="text-gray-400">Access your music anytime, anywhere on any device</p>
+                    </div>
+                    <div class="feature-item bg-gray-800 p-6 rounded-lg transform hover:scale-105 transition-transform duration-300">
+                        <i class="fas fa-share-alt text-3xl text-purple-500 mb-4"></i>
+                        <h4 class="text-lg font-bold mb-2">Easy Sharing</h4>
+                        <p class="text-gray-400">Share your favorite songs with friends and family</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Library Section -->
+    <section id="library" class="content-section hidden">
+        <div class="p-4 sm:p-6">
+            <div class="max-w-6xl mx-auto">
+                <div class="flex flex-col sm:flex-row justify-between items-center mb-8 space-y-4 sm:space-y-0">
+                    <h1 class="text-2xl sm:text-3xl font-bold">Music Library</h1>
+                    <div class="relative w-full sm:w-auto">
+                        <input type="text" id="search-input" placeholder="Search songs..." class="bg-gray-800 text-white px-4 py-2 rounded-full pl-10 w-full sm:w-64 focus:outline-none focus:ring-2 focus:ring-purple-500"/>
+                        <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+                    <!-- Song 1 -->
+                    <div class="song-card rounded-lg p-3 sm:p-4 cursor-pointer" data-title="Englishera" data-artist="John Kyle Perez" data-src="wwd.mp3juice.blog - Englishera - Missing Felimon(Lyrics) (320 KBps).mp3" data-img="perez.png">
+                        <div class="flex items-center space-x-3 sm:space-x-4">
+                            <div class="relative">
+                                <img alt="Englishera" class="h-12 w-12 sm:h-16 sm:w-16 rounded" src="perez.png"/>
+                                <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition">
+                                    <i class="fas fa-play text-white text-lg sm:text-xl"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-sm sm:text-base">Englishera</h3>
+                                <p class="text-xs sm:text-sm text-gray-400">John Kyle Perez</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Song 2 -->
+                    <div class="song-card rounded-lg p-3 sm:p-4 cursor-pointer" data-title="V-HIRE" data-artist="Driver sa" data-src="wwd.mp3juice.blog - V-hire with lyrics (320 KBps).mp3" data-img="v-hire.jpg">
+                        <div class="flex items-center space-x-3 sm:space-x-4">
+                            <div class="relative">
+                                <img alt="V-HIRE" class="h-12 w-12 sm:h-16 sm:w-16 rounded" src="v-hire.jpg"/>
+                                <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition">
+                                    <i class="fas fa-play text-white text-lg sm:text-xl"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-sm sm:text-base">V-HIRE</h3>
+                                <p class="text-xs sm:text-sm text-gray-400">Driver sa</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Song 3 -->
+                    <div class="song-card rounded-lg p-3 sm:p-4 cursor-pointer" data-title="Suroy Suroy" data-artist="Missing - Felimon" data-src="wwd.mp3juice.blog - Missing Filemon - Suroy-Suroy lyric video (320 KBps).mp3" data-img="https://storage.googleapis.com/a1aa/image/a3vqg2seiRfUrUXIjc_2hXMnrBwnxnAL7YlKmAZYrHg.jpg">
+                        <div class="flex items-center space-x-3 sm:space-x-4">
+                            <div class="relative">
+                                <img alt="Messy" class="h-12 w-12 sm:h-16 sm:w-16 rounded" src="https://storage.googleapis.com/a1aa/image/a3vqg2seiRfUrUXIjc_2hXMnrBwnxnAL7YlKmAZYrHg.jpg"/>
+                                <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition">
+                                    <i class="fas fa-play text-white text-lg sm:text-xl"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-sm sm:text-base">Suroy Suroy</h3>
+                                <p class="text-xs sm:text-sm text-gray-400">Missing - Felimon</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Song 4 -->
+                    <div class="song-card rounded-lg p-3 sm:p-4 cursor-pointer" data-title="Chinita" data-artist="Perez" data-src="wwd.mp3juice.blog - Chinita - Bisrock (Tiktok Lyric Video) (320 KBps).mp3" data-img="chinita.jpg">
+                        <div class="flex items-center space-x-3 sm:space-x-4">
+                            <div class="relative">
+                                <img alt="APT." class="h-12 w-12 sm:h-16 sm:w-16 rounded" src="chinita.jpg"/>
+                                <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition">
+                                    <i class="fas fa-play text-white text-lg sm:text-xl"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-sm sm:text-base">Chinita</h3>
+                                <p class="text-xs sm:text-sm text-gray-400">Perez</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Song 5-->
+                    <div class="song-card rounded-lg p-3 sm:p-4 cursor-pointer" data-title="Prinsipal" data-artist="Fernandez" data-src="wwd.mp3juice.blog - Missing Filemon - PRINSIPAL (Lyrics) (320 KBps).mp3" data-img="principal.jpg">
+                        <div class="flex items-center space-x-3 sm:space-x-4">
+                            <div class="relative">
+                                <img alt="APT." class="h-12 w-12 sm:h-16 sm:w-16 rounded" src="principal.jpg"/>
+                                <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition">
+                                    <i class="fas fa-play text-white text-lg sm:text-xl"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-sm sm:text-base">Prinsipal</h3>
+                                <p class="text-xs sm:text-sm text-gray-400">Fernandez</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Song 6-->
+                    <div class="song-card rounded-lg p-3 sm:p-4 cursor-pointer" data-title="Bisan pa" data-artist="Unknown" data-src="wwd.mp3juice.blog - bisan pa (lyrics) (320 KBps).mp3" data-img="maoy.jpg">
+                        <div class="flex items-center space-x-3 sm:space-x-4">
+                            <div class="relative">
+                                <img alt="APT." class="h-12 w-12 sm:h-16 sm:w-16 rounded" src="maoy.jpg"/>
+                                <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition">
+                                    <i class="fas fa-play text-white text-lg sm:text-xl"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-sm sm:text-base">Bisan pa</h3>
+                                <p class="text-xs sm:text-sm text-gray-400">phylum</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Song 7-->
+                    <div class="song-card rounded-lg p-3 sm:p-4 cursor-pointer" data-title="Istambay" data-artist="Enchi" data-src="wwd.mp3juice.blog - Istambay (Lyrics) - Enchi (320 KBps).mp3" data-img="tambay.jpg">
+                        <div class="flex items-center space-x-3 sm:space-x-4">
+                            <div class="relative">
+                                <img alt="APT." class="h-12 w-12 sm:h-16 sm:w-16 rounded" src="tambay.jpg"/>
+                                <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition">
+                                    <i class="fas fa-play text-white text-lg sm:text-xl"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-sm sm:text-base">Istambay</h3>
+                                <p class="text-xs sm:text-sm text-gray-400">Enchi</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Song 8-->
+                    <div class="song-card rounded-lg p-3 sm:p-4 cursor-pointer" data-title="Palagot sa kontra" data-artist="Unknown" data-src="wwd.mp3juice.blog - PALAGOT SA KONTRA - Phylum (lyrics) bisrock (320 KBps).mp3" data-img="skull.jpg">
+                        <div class="flex items-center space-x-3 sm:space-x-4">
+                            <div class="relative">
+                                <img alt="APT." class="h-12 w-12 sm:h-16 sm:w-16 rounded" src="skull.jpg"/>
+                                <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition">
+                                    <i class="fas fa-play text-white text-lg sm:text-xl"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="font-large text-sm sm:text-base">Palagot sa kontra</h3>
+                                <p class="text-xs sm:text-sm text-gray-400">Unknown</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Song 9-->
+                    <div class="song-card rounded-lg p-3 sm:p-4 cursor-pointer" data-title="Agay" data-artist="Abscond" data-src="wwd.mp3juice.blog - AGAY (lyrics) Abscond (320 KBps).mp3" data-img="spider.jpg">
+                        <div class="flex items-center space-x-3 sm:space-x-4">
+                            <div class="relative">
+                                <img alt="APT." class="h-12 w-12 sm:h-16 sm:w-16 rounded" src="spider.jpg"/>
+                                <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition">
+                                    <i class="fas fa-play text-white text-lg sm:text-xl"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-sm sm:text-base">Agay</h3>
+                                <p class="text-xs sm:text-sm text-gray-400">Abscond</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Song 10-->
+                    <div class="song-card rounded-lg p-3 sm:p-4 cursor-pointer" data-title="Sini" data-artist="Unknown" data-src="wwd.mp3juice.blog - PALAGOT SA KONTRA - Phylum (lyrics) bisrock (320 KBps).mp3" data-img="https://storage.googleapis.com/a1aa/image/1ACEKnp84OGES5TYGpQPKAWOxAOXNqe22AobrYiZVhc.jpg">
+                        <div class="flex items-center space-x-3 sm:space-x-4">
+                            <div class="relative">
+                                <img alt="APT." class="h-12 w-12 sm:h-16 sm:w-16 rounded" src="https://storage.googleapis.com/a1aa/image/1ACEKnp84OGES5TYGpQPKAWOxAOXNqe22AobrYiZVhc.jpg"/>
+                                <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition">
+                                    <i class="fas fa-play text-white text-lg sm:text-xl"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="font-large text-sm sm:text-base">Sine  Sine</h3>
+                                <p class="text-xs sm:text-sm text-gray-400">Missing filemon</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Song 11-->
+                    <div class="song-card rounded-lg p-3 sm:p-4 cursor-pointer" data-title="SABOT" data-artist="Unknown" data-src="wwd.mp3juice.blog - sabot sabot by phylum lyrics (320 KBps).mp3" data-img="al.png">
+                        <div class="flex items-center space-x-3 sm:space-x-4">
+                            <div class="relative">
+                                <img alt="APT." class="h-12 w-12 sm:h-16 sm:w-16 rounded" src="al.png"/>
+                                <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition">
+                                    <i class="fas fa-play text-white text-lg sm:text-xl"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="font-large text-sm sm:text-base">Sabot  Sabot</h3>
+                                <p class="text-xs sm:text-sm text-gray-400">phylum</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Song 12-->
+                    <div class="song-card rounded-lg p-3 sm:p-4 cursor-pointer" data-title="SABOT" data-artist="Unknown" data-src="Liar Evil by Aggressive Audio (Lyrics)(1).mp3" data-img="al.png">
+                        <div class="flex items-center space-x-3 sm:space-x-4">
+                            <div class="relative">
+                                <img alt="APT." class="h-12 w-12 sm:h-16 sm:w-16 rounded" src="al.png"/>
+                                <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition">
+                                    <i class="fas fa-play text-white text-lg sm:text-xl"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="font-large text-sm sm:text-base">Liar Evil</h3>
+                                <p class="text-xs sm:text-sm text-gray-400">phylum</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Section -->
+    <section id="popular" class="content-section hidden">
+        <div class="p-4 sm:p-6">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl sm:text-5xl font-bold mb-4">Most Played Songs</h1>
+                    <p class="text-xl text-gray-400 mb-8">Discover what's trending in Bisaya music</p>
+                </div>
+
+                <div id="popular-songs" class="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+                    <!-- Popular songs will be dynamically added here -->
+                </div>
+            </div>
+        </div>
+    </section>
 </main>
 
 <!-- Player Bar -->
-<footer class="sticky bottom-0 border-t p-4 bg-gray-900">
-    <div class="max-w-6xl mx-auto flex items-center">
-        <div class="flex items-center space-x-4 w-1/4">
-            <img id="now-playing-img" src="https://storage.googleapis.com/a1aa/image/ZFVn_Q6Rvns2WVC6VhBSFR8mm_7OmcDos0FXjgJUPXg.jpg" class="h-14 w-14 rounded"/>
-            <div>
-                <p id="now-playing-title" class="font-medium">Unknown</p>
-                <p id="now-playing-artist" class="text-sm text-gray-400">Unknown</p>
+<footer class="sticky bottom-0 border-t p-2 sm:p-4 bg-gray-900">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center">
+        <!-- Now Playing Info -->
+        <div class="flex items-center space-x-3 sm:space-x-4 w-full sm:w-1/4 mb-2 sm:mb-0">
+            <img id="now-playing-img" src="https://storage.googleapis.com/a1aa/image/ZFVn_Q6Rvns2WVC6VhBSFR8mm_7OmcDos0FXjgJUPXg.jpg" class="h-10 w-10 sm:h-14 sm:w-14 rounded"/>
+            <div class="truncate">
+                <p id="now-playing-title" class="font-medium text-sm sm:text-base truncate">Unknown</p>
+                <p id="now-playing-artist" class="text-xs sm:text-sm text-gray-400 truncate">Unknown</p>
             </div>
         </div>
 
-        <div class="flex-1 flex flex-col items-center space-y-2">
-            <div class="flex items-center space-x-6">
-                <button id="shuffle-btn" class="text-gray-400 hover:text-white">
+        <!-- Player Controls -->
+        <div class="flex-1 flex flex-col items-center space-y-2 w-full sm:w-auto">
+            <div class="flex items-center space-x-4 sm:space-x-6">
+                <button id="shuffle-btn" class="text-gray-400 hover:text-white text-sm sm:text-base">
                     <i class="fas fa-random"></i>
                 </button>
-                <button id="prev-btn" class="text-2xl hover:text-purple-400">
+                <button id="prev-btn" class="text-xl sm:text-2xl hover:text-purple-400">
                     <i class="fas fa-step-backward"></i>
                 </button>
-                <button id="play-pause-btn" class="bg-purple-600 hover:bg-purple-700 text-white rounded-full h-12 w-12 flex items-center justify-center">
+                <button id="play-pause-btn" class="bg-purple-600 hover:bg-purple-700 text-white rounded-full h-10 w-10 sm:h-12 sm:w-12 flex items-center justify-center">
                     <i class="fas fa-play"></i>
                 </button>
-                <button id="next-btn" class="text-2xl hover:text-purple-400">
+                <button id="next-btn" class="text-xl sm:text-2xl hover:text-purple-400">
                     <i class="fas fa-step-forward"></i>
                 </button>
-                <button id="repeat-btn" class="text-gray-400 hover:text-white">
+                <button id="repeat-btn" class="text-gray-400 hover:text-white text-sm sm:text-base">
                     <i class="fas fa-redo"></i>
                 </button>
             </div>
-            <div class="w-full flex items-center space-x-3">
+            <div class="w-full flex items-center space-x-2 sm:space-x-3">
                 <span id="current-time" class="text-xs text-gray-400">0:00</span>
                 <div class="flex-1 h-1 bg-gray-700 rounded-full overflow-hidden">
                     <div id="progress-bar" class="h-full bg-purple-500" style="width: 0%"></div>
@@ -245,10 +447,11 @@
             </div>
         </div>
 
-        <div class="w-1/4 flex justify-end items-center space-x-4">
+        <!-- Volume Control -->
+        <div class="w-full sm:w-1/4 flex justify-center sm:justify-end items-center space-x-2 sm:space-x-4 mt-2 sm:mt-0">
             <div class="flex items-center">
-                <i class="fas fa-volume-up text-gray-400 mr-2"></i>
-                <input type="range" min="0" max="100" value="80" class="w-24 accent-purple-500"/>
+                <i class="fas fa-volume-up text-gray-400 mr-2 text-sm sm:text-base"></i>
+                <input type="range" min="0" max="100" value="80" class="w-20 sm:w-24 accent-purple-500"/>
             </div>
         </div>
     </div>
